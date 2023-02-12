@@ -24,38 +24,51 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             //mySource.PlayOneShot(jumpClip);
             LlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
 
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             //mySource.clip = jumpClip;
             //mySource.Play();
             RlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
 
         }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            mainBody.velocity = new Vector3(0, power, 0);
+        //LlegBody.GetComponent<BoxCollider2D>()
 
+        if(true) {
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                mainBody.velocity = new Vector3(0, power, 0);
+
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                mainBody.velocity = new Vector3(0, -power, 0);
+
+            }
         }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            mainBody.velocity = new Vector3(0, -power, 0);
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    mainBody.velocity = new Vector3(-power, 0, 0);
 
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            mainBody.velocity = new Vector3(-power, 0, 0);
+        //}
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    mainBody.velocity = new Vector3(power, 0, 0);
 
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            mainBody.velocity = new Vector3(power, 0, 0);
+        //}
+    }
 
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        {
+            if (collision.collider.gameObject.tag.Equals("Floor"))
+                Debug.Log("开始碰撞" + collision.collider.gameObject.name);
         }
     }
 }
