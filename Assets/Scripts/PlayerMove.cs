@@ -86,7 +86,7 @@ public class PlayerMove : MonoBehaviour
             else if (collision.gameObject.tag.Equals("Finish"))
             {
 
-                SceneManager.LoadScene("FinishScene");
+                SceneManager.LoadScene("WinScene");
 
             }
             //Debug.Log("Start Collide" + collision.collider.gameObject.name);
