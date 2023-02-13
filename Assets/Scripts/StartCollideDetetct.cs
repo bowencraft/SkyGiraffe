@@ -15,7 +15,7 @@ public class StartCollideDetetct : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Object.Destroy(CloudObject);
         }
