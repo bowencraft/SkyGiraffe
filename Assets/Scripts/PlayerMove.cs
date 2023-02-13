@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMove : MonoBehaviour
 {
+    public GameObject MainCamera;
     public Rigidbody2D LlegBody;
     public Rigidbody2D RlegBody;
     Rigidbody2D mainBody;
@@ -69,10 +71,25 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-    void OnCollisionEnter2D(Collision2D collision) {
+    void OnTriggerEnter2D(Collider2D collision) {
         {
-            if (collision.collider.gameObject.tag.Equals("Floor"))
-                Debug.Log("开始碰撞" + collision.collider.gameObject.name);
+            if (collision.gameObject.tag.Equals("Floor")) {
+
+                MainCamera.GetComponent<CameraMove>().PlayerObject = this.gameObject;
+
+            } else if (collision.gameObject.tag.Equals("RoomTrigger"))
+            {
+
+                SceneManager.LoadScene("FailScene");
+
+            }
+            else if (collision.gameObject.tag.Equals("Finish"))
+            {
+
+                SceneManager.LoadScene("FinishScene");
+
+            }
+            //Debug.Log("Start Collide" + collision.collider.gameObject.name);
         }
     }
 }
