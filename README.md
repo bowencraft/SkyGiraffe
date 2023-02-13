@@ -1,6 +1,6 @@
 ﻿# SkyGiraffe
 
-![banner](https://github.com/bowencraft/SkyGiraffe/pictures/banner.png)
+![banner](https://github.com/bowencraft/SkyGiraffe/blob/main/pictures/banner.png)
 
 This is a parody of [QWOP](https://www.foddy.net/Athletics.html). Here, the clumsy sky giraffe wandering among the clouds, moving around and falling from the clouds, until it finds its leafy endpoint.
 
