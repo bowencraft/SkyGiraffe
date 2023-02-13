@@ -19,11 +19,11 @@ public class SpringJump : MonoBehaviour
         
     }
 
-    void OnCollisionStay2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         {
             if (collision.collider.gameObject.tag.Equals("Player")) {
-                Debug.Log("Boom!");
+                //Debug.Log("Boom!");
                 mainBody.velocity = new Vector3(0, JumpPower, 0);
             }
         }

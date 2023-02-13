@@ -6,14 +6,10 @@ using UnityEngine.SceneManagement;
 public class StartCollideDetetct : MonoBehaviour
 {
     public GameObject CloudObject;
-    public AudioSource mySource;
-    public AudioClip jumpClip;
     // Start is called before the first frame update
     void Start()
     {
 
-        mySource.clip = jumpClip;
-        mySource.Play();
     }
 
     // Update is called once per frame

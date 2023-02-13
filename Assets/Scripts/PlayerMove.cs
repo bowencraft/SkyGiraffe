@@ -13,13 +13,16 @@ public class PlayerMove : MonoBehaviour
     Rigidbody2D mainBody;
 
     public float power;
-    public AudioSource mySource;
-    public AudioClip jumpClip;
+    public AudioSource audios;
+    public AudioClip clips;
 
     // Start is called before the first frame update
     void Start()
     {
         mainBody = GetComponent<Rigidbody2D>();
+        //audios = GetComponent<AudioSource>();
+        //audios.Play();
+        //Debug.Log("BGM Played.");
 
     }
 
@@ -31,6 +34,8 @@ public class PlayerMove : MonoBehaviour
             //mySource.PlayOneShot(jumpClip);
             LlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
             mainBody.velocity = new Vector3(-power, 0, 0);
+            audios.PlayOneShot(clips);
+            Debug.Log("Audio Played.");
 
         }
         if (Input.GetKeyDown(KeyCode.D))
@@ -39,6 +44,8 @@ public class PlayerMove : MonoBehaviour
             //mySource.Play();
             RlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
             mainBody.velocity = new Vector3(power, 0, 0);
+            audios.PlayOneShot(clips);
+            Debug.Log("Audio Played.");
 
         }
         //LlegBody.GetComponent<BoxCollider2D>()
@@ -51,11 +58,15 @@ public class PlayerMove : MonoBehaviour
                 RlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
                 mainBody.velocity = new Vector3(0, 0.5f * mainBody.gravityScale * power, 0);
 
+                audios.PlayOneShot(clips);
+                Debug.Log("Audio Played.");
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
                 mainBody.velocity = new Vector3(0, -power, 0);
 
+                audios.PlayOneShot(clips);
+                Debug.Log("Audio Played.");
             }
         }
         //if (Input.GetKeyDown(KeyCode.A))
