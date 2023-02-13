@@ -32,8 +32,8 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             //mySource.PlayOneShot(jumpClip);
-            LlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
             mainBody.velocity = new Vector3(-power, 0, 0);
+            LlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
             audios.PlayOneShot(clips);
             Debug.Log("Audio Played.");
 
@@ -54,9 +54,9 @@ public class PlayerMove : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                LlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
-                RlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
-                mainBody.velocity = new Vector3(0, 0.5f * mainBody.gravityScale * power, 0);
+                LlegBody.AddForce(transform.up * power * 0.5f, ForceMode2D.Impulse);
+                RlegBody.AddForce(transform.up * power * 0.5f, ForceMode2D.Impulse);
+                mainBody.velocity = new Vector3(0, 0.4f * mainBody.gravityScale * power, 0);
 
                 audios.PlayOneShot(clips);
                 Debug.Log("Audio Played.");
