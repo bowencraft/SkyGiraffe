@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floor
   - RoomTrigger
+  - Ground
   layers:
   - Default
   - TransparentFX

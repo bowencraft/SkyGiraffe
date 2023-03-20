@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
+//using Vector2 = UnityEngine.Vector2;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class PlayerMove : MonoBehaviour
     public Rigidbody2D LlegBody;
     public Rigidbody2D RlegBody;
     Rigidbody2D mainBody;
+    public bool grounded = false;
+    public float castDist = 5f;
 
     public float power;
     public AudioSource audios;
@@ -29,6 +33,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.A))
         {
             //mySource.PlayOneShot(jumpClip);
@@ -52,18 +57,28 @@ public class PlayerMove : MonoBehaviour
 
         if (true) {
 
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W) )
             {
-                LlegBody.AddForce(transform.up * power * 0.5f, ForceMode2D.Impulse);
-                RlegBody.AddForce(transform.up * power * 0.5f, ForceMode2D.Impulse);
-                mainBody.velocity = new Vector3(0, 0.4f * mainBody.gravityScale * power, 0);
+                if (grounded) {
+
+                    LlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
+                    RlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
+                    mainBody.velocity = new Vector3(0, 0.4f * mainBody.gravityScale * power, 0);
+                    Debug.Log("Ground jumped.");
+                } else
+                {
+                    LlegBody.AddForce(transform.up * power * 0.15f, ForceMode2D.Impulse);
+                    RlegBody.AddForce(transform.up * power * 0.15f, ForceMode2D.Impulse);
+                    mainBody.velocity = new Vector3(0, 0.4f * mainBody.gravityScale * power, 0);
+
+                }
 
                 audios.PlayOneShot(clips);
                 Debug.Log("Audio Played.");
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
-                mainBody.velocity = new Vector3(0, -power, 0);
+                mainBody.velocity = new Vector3(0, -power * 2, 0);
 
                 audios.PlayOneShot(clips);
                 Debug.Log("Audio Played.");
@@ -81,6 +96,22 @@ public class PlayerMove : MonoBehaviour
         //}
     }
 
+    private void FixedUpdate()
+    {
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, castDist);
+        Debug.DrawRay(transform.position, Vector2.down, Color.red);
+
+        if (hit.collider != null && hit.collider.transform.tag == "Ground")
+        {
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
+
+    }
 
     void OnTriggerEnter2D(Collider2D collision) {
         {
