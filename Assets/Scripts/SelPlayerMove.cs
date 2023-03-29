@@ -7,7 +7,7 @@ using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 //using Vector2 = UnityEngine.Vector2;
 
-public class PlayerMove : MonoBehaviour
+public class SelPlayerMove : MonoBehaviour
 {
     public GameObject MainCamera;
     public Rigidbody2D LlegBody;
@@ -122,11 +122,13 @@ public class PlayerMove : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision) {
         {
-            if (collision.gameObject.tag.Equals("Floor")) {
+            if (collision.gameObject.tag.Equals("Floor"))
+            {
 
-                MainCamera.GetComponent<CameraMove>().PlayerObject = this.gameObject;
+                //MainCamera.GetComponent<CameraMove>().PlayerObject = this.gameObject;
 
-            } else if (collision.gameObject.tag.Equals("RoomTrigger"))
+            }
+            else if (collision.gameObject.tag.Equals("RoomTrigger"))
             {
 
                 SceneManager.LoadScene("FailScene");
@@ -138,8 +140,7 @@ public class PlayerMove : MonoBehaviour
                 SceneManager.LoadScene("WinScene");
 
             }
-            else if (collision.gameObject.name.Equals(cameraPos1.name))
-            {
+            else if (collision.gameObject.name.Equals(cameraPos1.name)) {
 
                 MainCamera.GetComponent<SelCamera>().SelObject = cameraPos1;
             }
