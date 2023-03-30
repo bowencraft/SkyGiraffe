@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6977656581274922023, guid: 4454518a54c2b4412b6ab4533bf1791e, type: 3}
       propertyPath: m_Name
-      value: Plat_Cloud_Parent
+      value: Platform_Cloud_SelectScene_White
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4454518a54c2b4412b6ab4533bf1791e, type: 3}

@@ -16,15 +16,21 @@ public class PlayerMove : MonoBehaviour
     public bool grounded = false;
     public float castDist = 5f;
 
+    private float LightningCountDown;
+    public int LightningLength = 1500;
+
     public float power;
     public AudioSource audios;
     public AudioClip clips;
+    public AudioClip LightningSound;
+
 
     public GameObject cameraPos1;
     public GameObject cameraPos2;
     public GameObject cameraPos3;
     public GameObject cameraPos4;
     public GameObject cameraPos5;
+
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +53,7 @@ public class PlayerMove : MonoBehaviour
             LlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
             RlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
             audios.PlayOneShot(clips);
-            Debug.Log("Audio Played.");
+            //Debug.Log("Audio Played.");
 
         }
         if (Input.GetKeyDown(KeyCode.D))
@@ -55,9 +61,9 @@ public class PlayerMove : MonoBehaviour
             //mySource.clip = jumpClip;
             //mySource.Play();
             RlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
-            mainBody.velocity = new Vector3(power, 0, 0);
+            mainBody.velocity = new Vector3(2 * power, 0, 0);
             audios.PlayOneShot(clips);
-            Debug.Log("Audio Played.");
+            //Debug.Log("Audio Played.");
 
         }
         //LlegBody.GetComponent<BoxCollider2D>()
@@ -70,7 +76,7 @@ public class PlayerMove : MonoBehaviour
 
                     LlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
                     RlegBody.AddForce(transform.up * power, ForceMode2D.Impulse);
-                    mainBody.velocity = new Vector3(0, 0.4f * mainBody.gravityScale * power, 0);
+                    mainBody.velocity = new Vector3(0, 1f * mainBody.gravityScale * power, 0);
                     Debug.Log("Ground jumped.");
                 } else
                 {
@@ -81,14 +87,26 @@ public class PlayerMove : MonoBehaviour
                 }
 
                 audios.PlayOneShot(clips);
-                Debug.Log("Audio Played.");
+                //Debug.Log("Audio Played.");
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
                 mainBody.velocity = new Vector3(0, -power * 2, 0);
 
                 audios.PlayOneShot(clips);
-                Debug.Log("Audio Played.");
+                //Debug.Log("Audio Played.");
+            }
+        }
+
+        if (LightningCountDown >0)
+        {
+            LightningCountDown--;
+        } else
+        {
+            if (SceneManager.GetActiveScene().name.Equals("Level2"))
+            {
+
+                MainCamera.GetComponent<CameraMove>().goalColor = new Color(0.06563725f, 0.1279469f, 0.2358491f);
             }
         }
         //if (Input.GetKeyDown(KeyCode.A))
@@ -120,6 +138,15 @@ public class PlayerMove : MonoBehaviour
 
     }
 
+    public void cameraLightning() {
+        Debug.Log("Lighting!");
+        audios.PlayOneShot(LightningSound);
+        //Debug.Log("Audio Played.");
+
+        MainCamera.GetComponent<CameraMove>().goalColor = new Color(0.2791474f, 0.3543045f, 0.4811321f);
+        LightningCountDown = LightningLength * Time.deltaTime;
+    }
+
     void OnTriggerEnter2D(Collider2D collision) {
         {
             if (collision.gameObject.tag.Equals("Floor")) {
@@ -132,36 +159,40 @@ public class PlayerMove : MonoBehaviour
                 SceneManager.LoadScene("FailScene");
 
             }
-            else if (collision.gameObject.tag.Equals("Finish"))
+            else if (collision.gameObject.name.Equals("endpoint_lv1"))
             {
 
-                SceneManager.LoadScene("WinScene");
+                SceneManager.LoadScene("LevelSelect");
 
             }
-            else if (collision.gameObject.name.Equals(cameraPos1.name))
-            {
 
-                MainCamera.GetComponent<SelCamera>().SelObject = cameraPos1;
-            }
-            else if (collision.gameObject.name.Equals(cameraPos2.name))
-            {
+            if (SceneManager.GetActiveScene().name.Equals("LevelSelect")) {
 
-                MainCamera.GetComponent<SelCamera>().SelObject = cameraPos2;
-            }
-            else if (collision.gameObject.name.Equals(cameraPos3.name))
-            {
+                if (collision.gameObject.name.Equals(cameraPos1.name))
+                {
 
-                MainCamera.GetComponent<SelCamera>().SelObject = cameraPos3;
-            }
-            else if (collision.gameObject.name.Equals(cameraPos4.name))
-            {
+                    MainCamera.GetComponent<SelCamera>().SelObject = cameraPos1;
+                }
+                else if (collision.gameObject.name.Equals(cameraPos2.name))
+                {
 
-                MainCamera.GetComponent<SelCamera>().SelObject = cameraPos4;
-            }
-            else if (collision.gameObject.name.Equals(cameraPos5.name))
-            {
+                    MainCamera.GetComponent<SelCamera>().SelObject = cameraPos2;
+                }
+                else if (collision.gameObject.name.Equals(cameraPos3.name))
+                {
 
-                MainCamera.GetComponent<SelCamera>().SelObject = cameraPos5;
+                    MainCamera.GetComponent<SelCamera>().SelObject = cameraPos3;
+                }
+                else if (collision.gameObject.name.Equals(cameraPos4.name))
+                {
+
+                    MainCamera.GetComponent<SelCamera>().SelObject = cameraPos4;
+                }
+                else if (collision.gameObject.name.Equals(cameraPos5.name))
+                {
+
+                    MainCamera.GetComponent<SelCamera>().SelObject = cameraPos5;
+                }
             }
             //Debug.Log("Start Collide" + collision.collider.gameObject.name);
         }

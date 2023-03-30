@@ -9,7 +9,6 @@ public class StartCollideDetetct : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -26,7 +25,7 @@ public class StartCollideDetetct : MonoBehaviour
     {
         {
             if (collision.gameObject.tag.Equals("RoomTrigger"))
-                SceneManager.LoadScene("MainScene");
+                SceneManager.LoadScene("LevelSelect");
         }
     }
 }
